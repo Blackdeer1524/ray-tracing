@@ -1,0 +1,8 @@
+add_subdirectory(vec3)
+add_subdirectory(color)
+add_subdirectory(ray)
+add_subdirectory(interval)
+add_subdirectory(rtweekend)
+add_subdirectory(hittable)
+add_subdirectory(hittable_list)
+add_subdirectory(objects)
