@@ -7,7 +7,10 @@
 #include "hittable.h"
 #include "material.h"
 #include "vec3.h"
+#include <array>
 #include <cmath>
+#include <thread>
+#include <vector>
 
 class camera {
  public:
@@ -26,22 +29,38 @@ class camera {
         10;  // Distance from camera lookfrom point to plane of perfect focus
 
     void render(const hittable &world) {
+        static const auto n_threads = std::thread::hardware_concurrency() * 2;
+
         initialize();
+        const auto step = image_height / n_threads;
+        std::vector<std::tuple<int, int, int>> buffer(size_t(image_width) *
+                                                      image_height);
+
+        auto pool = std::vector<std::thread>();
+        for (int start = 0; start < n_threads; ++start) {
+            pool.emplace_back([this, &world, &buffer, start]() {
+                for (int i = start; i < image_height; i += n_threads) {
+                    for (int j = 0; j < image_width; ++j) {
+                        color c;
+                        for (int k = 0; k < samples_per_pixel; ++k) {
+                            const auto r = get_ray(i, j);
+                            c += ray_color(r, max_depth, world);
+                        }
+                        buffer[i * image_width + j] =
+                            write_color(c, samples_per_pixel);
+                    }
+                }
+            });
+        }
+
+        for (auto &t : pool) {
+            t.join();
+        }
 
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-        for (int i = 0; i < image_height; ++i) {
-            std::clog << "\rScanlines remaining: " << (image_height - i) << ' '
-                      << std::flush;
-            for (int j = 0; j < image_width; ++j) {
-                color c;
-                for (int k = 0; k < samples_per_pixel; ++k) {
-                    const auto r = get_ray(i, j);
-                    c += ray_color(r, max_depth, world);
-                }
-                write_color(std::cout, c, samples_per_pixel);
-            }
+        for (auto [r, g, b] : buffer) {
+            std::cout << r << ' ' << g << ' ' << b << '\n';
         }
-        std::clog << "\rDone.                 \n";
     }
 
  private:
