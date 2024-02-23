@@ -29,33 +29,24 @@ class camera {
         10;  // Distance from camera lookfrom point to plane of perfect focus
 
     void render(const hittable &world) {
-        static const auto n_threads = std::thread::hardware_concurrency() * 2;
-
         initialize();
-        const auto step = image_height / n_threads;
         std::vector<std::tuple<int, int, int>> buffer(size_t(image_width) *
                                                       image_height);
 
-        auto pool = std::vector<std::thread>();
-        for (int start = 0; start < n_threads; ++start) {
-            pool.emplace_back([this, &world, &buffer, start]() {
-                for (int i = start; i < image_height; i += n_threads) {
-                    for (int j = 0; j < image_width; ++j) {
-                        color c;
-                        for (int k = 0; k < samples_per_pixel; ++k) {
-                            const auto r = get_ray(i, j);
-                            c += ray_color(r, max_depth, world);
-                        }
-                        buffer[i * image_width + j] =
-                            write_color(c, samples_per_pixel);
-                    }
+        for (int i = 0; i < image_height; ++i) {
+            std::clog << "\rScanlines remaining: " << (image_height - i) << ' '
+                      << std::flush;
+#pragma omp parallel for
+            for (int j = 0; j < image_width; ++j) {
+                color c;
+                for (int k = 0; k < samples_per_pixel; ++k) {
+                    const auto r = get_ray(i, j);
+                    c += ray_color(r, max_depth, world);
                 }
-            });
+                buffer[i * image_width + j] = write_color(c, samples_per_pixel);
+            }
         }
-
-        for (auto &t : pool) {
-            t.join();
-        }
+        std::clog << "\rDone.                 \n";
 
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
         for (auto [r, g, b] : buffer) {
@@ -132,25 +123,28 @@ class camera {
                (p[1] * defocus_disk_v);
     }
 
-    color
-    ray_color(const ray &r, const int max_depth, const hittable &world) const {
-        if (max_depth <= 0) {
-            return color(0, 0, 0);
-        }
-        hit_record rec;
-
-        if (world.hit(r, interval(0.001, infinity), rec)) {
+    color ray_color(ray r, const int max_depth, const hittable &world) const {
+        color cumulative_attenuation(1.0, 1.0, 1.0);
+        int i = 0;
+        for (; i < max_depth; ++i) {
+            hit_record rec;
+            if (!world.hit(r, interval(0.001, infinity), rec)) {
+                vec3 unit_direction = unit_vector(r.direction());
+                auto a = 0.5 * (unit_direction.y() + 1.0);
+                return cumulative_attenuation *
+                       ((1.0 - a) * color(1.0, 1.0, 1.0) +
+                        a * color(0.5, 0.7, 1.0));
+            }
             color attenuation;
             ray scattered;
             if (rec.mat->scatter(r, rec, attenuation, scattered)) {
-                return attenuation * ray_color(scattered, max_depth - 1, world);
+                cumulative_attenuation = cumulative_attenuation * attenuation;
+                r = scattered;
+            } else {
+                return color(0, 0, 0);
             }
-            return color(0, 0, 0);
         }
-
-        vec3 unit_direction = unit_vector(r.direction());
-        auto a = 0.5 * (unit_direction.y() + 1.0);
-        return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
+        return color(0, 0, 0);
     }
 };
 
