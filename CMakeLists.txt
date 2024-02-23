@@ -12,5 +12,6 @@ target_link_libraries(main ray)
 target_link_libraries(main sphere)
 target_link_libraries(main rtweekend)
 target_link_libraries(main hittable)
+target_link_libraries(main hittable_list)
 target_link_libraries(main camera)
 

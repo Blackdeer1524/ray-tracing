@@ -40,6 +40,12 @@ class vec3 {
         return e[i];
     }
 
+    bool near_zero() const {
+        // Return true if the vector is close to zero in all dimensions.
+        auto s = 1e-8;
+        return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+    }
+
     vec3 &operator+=(const vec3 &v) {
         e[0] += v.e[0];
         e[1] += v.e[1];
@@ -152,6 +158,10 @@ inline vec3 random_on_hemisphere(const vec3 &normal) {
         return on_unit_sphere;  // In the same hemisphere as the normal
     }
     return -on_unit_sphere;
+}
+
+vec3 reflect(const vec3 &v, const vec3 &n) {
+    return v - 2 * dot(v, n) * n;
 }
 
 #endif
