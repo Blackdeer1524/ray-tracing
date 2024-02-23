@@ -36,8 +36,8 @@ class camera {
     int image_height;
     point3 camera_center;
     point3 p00_position;
-    double delta_u;
-    double delta_v;
+    vec3 delta_u;
+    vec3 delta_v;
 
     void initialize() {
         image_height = static_cast<int>(image_width / aspect_ratio);
@@ -54,24 +54,22 @@ class camera {
         const auto v_u = vec3(viewport_width, 0, 0);
         const auto v_v = vec3(0, -viewport_height, 0);
 
-        delta_u = viewport_width / image_width;
-        delta_v = -viewport_height / image_height;
+        delta_u = vec3(viewport_width / image_width, 0, 0);
+        delta_v = vec3(0, -viewport_height / image_height, 0);
 
-        p00_position = viewport_position - v_u / 2 - v_v / 2 +
-                       vec3(delta_u / 2, 0, 0) + vec3(0, delta_v / 2, 0);
+        p00_position =
+            viewport_position - v_u / 2 - v_v / 2 + delta_u / 2 + delta_v / 2;
     }
 
     ray get_ray(int i, int j) {
-        const auto shooting_pos =
-            p00_position + vec3(delta_u * j, delta_v * i, 0);
+        const auto shooting_pos = p00_position + delta_u * j + delta_v * i;
         const auto sampled_shooting_pos = shooting_pos + pixel_sample_suquare();
 
         return ray(camera_center, sampled_shooting_pos - camera_center);
     }
 
     vec3 pixel_sample_suquare() {
-        return vec3(
-            delta_u / 2 * random_double(), delta_v / 2 * random_double(), 0);
+        return delta_u / 2 * random_double() + delta_v / 2 * random_double();
     }
 
     color ray_color(const ray &r, const hittable &world) const {
