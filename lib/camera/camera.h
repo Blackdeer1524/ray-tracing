@@ -11,6 +11,7 @@ class camera {
  public:
     double aspect_ratio = 1.0;
     int image_width = 100;
+    int samples_per_pixel = 10;
 
     void render(const hittable &world) {
         initialize();
@@ -20,12 +21,12 @@ class camera {
             std::clog << "\rScanlines remaining: " << (image_height - i) << ' '
                       << std::flush;
             for (int j = 0; j < image_width; ++j) {
-                const auto shooting_pos =
-                    p00_position + vec3(delta_u * j, delta_v * i, 0);
-                const ray r(camera_center, shooting_pos - camera_center);
-                const auto c = ray_color(r, world);
-
-                write_color(std::cout, c);
+                color c;
+                for (int k = 0; k < samples_per_pixel; ++k) {
+                    const auto r = get_ray(i, j);
+                    c += ray_color(r, world);
+                }
+                write_color(std::cout, c, samples_per_pixel);
             }
         }
         std::clog << "\rDone.                 \n";
@@ -58,6 +59,19 @@ class camera {
 
         p00_position = viewport_position - v_u / 2 - v_v / 2 +
                        vec3(delta_u / 2, 0, 0) + vec3(0, delta_v / 2, 0);
+    }
+
+    ray get_ray(int i, int j) {
+        const auto shooting_pos =
+            p00_position + vec3(delta_u * j, delta_v * i, 0);
+        const auto sampled_shooting_pos = shooting_pos + pixel_sample_suquare();
+
+        return ray(camera_center, sampled_shooting_pos - camera_center);
+    }
+
+    vec3 pixel_sample_suquare() {
+        return vec3(
+            delta_u / 2 * random_double(), delta_v / 2 * random_double(), 0);
     }
 
     color ray_color(const ray &r, const hittable &world) const {
