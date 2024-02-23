@@ -7,6 +7,7 @@
 #include "hittable.h"
 #include "material.h"
 #include "vec3.h"
+#include <cmath>
 
 class camera {
  public:
@@ -14,6 +15,7 @@ class camera {
     int image_width = 100;
     int samples_per_pixel = 10;
     int max_depth = 10;  // Maximum number of ray bounces into scene
+    double vfov = 90;    // in degrees
 
     void render(const hittable &world) {
         initialize();
@@ -46,7 +48,9 @@ class camera {
         image_height = (image_height < 1) ? 1 : image_height;
 
         constexpr double focal_length = 1.0;
-        constexpr double viewport_height = 2.0;
+
+        const auto h = focal_length * std::tan(degrees_to_radians(vfov / 2));
+        const double viewport_height = 2 * h;
         const auto viewport_width =
             viewport_height * (static_cast<double>(image_width) / image_height);
 
