@@ -13,8 +13,7 @@ inline double linear_to_gamma(double linear_component) {
     return sqrt(linear_component);
 }
 
-inline std::tuple<int, int, int> write_color(color pixel_color,
-                                             int samples_per_pixel) {
+inline int write_color(color pixel_color, int samples_per_pixel) {
     auto r = pixel_color.x();
     auto g = pixel_color.y();
     auto b = pixel_color.z();
@@ -32,9 +31,12 @@ inline std::tuple<int, int, int> write_color(color pixel_color,
 
     // Write the translated [0,255] value of each color component.
     static const interval intensity(0.000, 0.999);
-    return {static_cast<int>(256 * intensity.clamp(r)),
-            static_cast<int>(256 * intensity.clamp(g)),
-            static_cast<int>(256 * intensity.clamp(b))};
+
+    auto ir = static_cast<int>(256 * intensity.clamp(r));
+    auto ig = static_cast<int>(256 * intensity.clamp(g));
+    auto ib = static_cast<int>(256 * intensity.clamp(b));
+
+    return (ir << 16) + (ig << 8) + ib;
 }
 
 #endif

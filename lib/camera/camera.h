@@ -30,8 +30,7 @@ class camera {
 
     void render(const hittable &world) {
         initialize();
-        std::vector<std::tuple<int, int, int>> buffer(size_t(image_width) *
-                                                      image_height);
+        std::vector<int> buffer(size_t(image_width) * image_height);
 
         for (int i = 0; i < image_height; ++i) {
             std::clog << "\rScanlines remaining: " << (image_height - i) << ' '
@@ -49,7 +48,12 @@ class camera {
         std::clog << "\rDone.                 \n";
 
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-        for (auto [r, g, b] : buffer) {
+        for (auto rgb : buffer) {
+            auto b = rgb % 256;
+            rgb >>= 8;
+            auto g = rgb % 256;
+            rgb >>= 8;
+            auto r = rgb % 256;
             std::cout << r << ' ' << g << ' ' << b << '\n';
         }
     }
@@ -140,6 +144,8 @@ class camera {
             if (rec.mat->scatter(r, rec, attenuation, scattered)) {
                 cumulative_attenuation = cumulative_attenuation * attenuation;
                 r = scattered;
+            } else if (!attenuation.near_zero()) {
+                return cumulative_attenuation * attenuation;
             } else {
                 return color(0, 0, 0);
             }

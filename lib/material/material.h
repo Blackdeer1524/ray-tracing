@@ -101,4 +101,21 @@ class dielectric : public material {
     }
 };
 
+class light_source : public material {
+ public:
+    light_source(color &&c) : c_(std::move(c)) {
+    }
+
+    bool scatter(const ray &r_in,
+                 const hit_record &rec,
+                 color &attenuation,
+                 ray &scattered) const override {
+        attenuation = c_;
+        return false;
+    }
+
+ private:
+    const color c_;
+};
+
 #endif
