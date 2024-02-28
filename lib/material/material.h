@@ -17,7 +17,7 @@ class material {
 
 class lambertian : public material {
  public:
-    lambertian(const color &a) : albedo(a) {
+    explicit lambertian(const color &a) : albedo(a) {
     }
 
     bool scatter(const ray &r_in,

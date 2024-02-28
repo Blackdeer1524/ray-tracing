@@ -1,9 +1,8 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-#include "rtweekend.h"
+#include "common.h"
 #include <cmath>
-#include <numbers>
 #include <ostream>
 
 class vec3 {
@@ -84,8 +83,6 @@ class vec3 {
     }
 };
 
-// point3 is just an alias for vec3, but useful for geometric clarity in the
-// code.
 using point3 = vec3;
 
 // Vector Utility Functions
@@ -142,14 +139,6 @@ inline vec3 random_in_unit_disk() {
 }
 
 inline vec3 random_in_unit_sphere() {
-    // https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
-    // const auto r = random_float();
-    // const auto phi = random_float(0, 2 * pi);
-    // const auto theta = random_float(0, 2 * pi);
-    // return vec3(r * std::sin(theta) * std::cos(phi),
-    //             r * std::sin(theta) * std::sin(phi),
-    //             r * std::cos(theta));
-
     while (true) {
         auto p = vec3::random(-1, 1);
         if (p.length_squared() < 1) {
@@ -162,14 +151,7 @@ inline vec3 random_unit_vector() {
     return unit_vector(random_in_unit_sphere());
 }
 
-inline vec3 random_on_hemisphere(const vec3 &normal) {
-    vec3 on_unit_sphere = random_unit_vector();
-    if (dot(on_unit_sphere, normal) > 0.0) {
-        return on_unit_sphere;  // In the same hemisphere as the normal
-    }
-    return -on_unit_sphere;
-}
-
+// n должен быть нормирован
 inline vec3 reflect(const vec3 &v, const vec3 &n) {
     return v - 2 * dot(v, n) * n;
 }
