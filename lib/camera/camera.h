@@ -7,35 +7,50 @@
 #include "hittable.h"
 #include "material.h"
 #include "vec3.h"
-#include <array>
 #include <cmath>
 #include <thread>
 #include <vector>
 
 class camera {
  public:
-    double aspect_ratio = 1.0;
+    float aspect_ratio = 1.0;
     int image_width = 100;
     int samples_per_pixel = 10;
     int max_depth = 10;  // Maximum number of ray bounces into scene
-    double vfov = 90;    // in degrees
+    float vfov = 90;     // in degrees
 
     point3 lookfrom = point3(0, 0, 0);  // Point camera is looking from
     point3 lookat = point3(0, 0, -1);   // Point camera is looking at
     vec3 vup = vec3(0, 1, 0);           // Camera-relative "up" direction
 
-    double defocus_angle = 0;  // Variation angle of rays through each pixel
-    double focus_dist =
+    float defocus_angle = 0;  // Variation angle of rays through each pixel
+    float focus_dist =
         10;  // Distance from camera lookfrom point to plane of perfect focus
 
     void render(const hittable &world) {
         initialize();
         std::vector<int> buffer(size_t(image_width) * image_height);
 
-        for (int i = 0; i < image_height; ++i) {
+        std::vector<std::thread> pool;
+        const auto thread_count = 16;
+        for (int k = 1; k < thread_count; k += 1) {
+            pool.emplace_back([k, this, &world, &buffer]() {
+                for (int i = k; i < image_height; i += thread_count) {
+                    for (int j = 0; j < image_width; ++j) {
+                        color c;
+                        for (int k = 0; k < samples_per_pixel; ++k) {
+                            const auto r = get_ray(i, j);
+                            c += ray_color(r, max_depth, world);
+                        }
+                        buffer[i * image_width + j] =
+                            write_color(c, samples_per_pixel);
+                    }
+                }
+            });
+        }
+        for (int i = 0; i < image_height; i += thread_count) {
             std::clog << "\rScanlines remaining: " << (image_height - i) << ' '
                       << std::flush;
-#pragma omp parallel for
             for (int j = 0; j < image_width; ++j) {
                 color c;
                 for (int k = 0; k < samples_per_pixel; ++k) {
@@ -46,6 +61,9 @@ class camera {
             }
         }
         std::clog << "\rDone.                 \n";
+        for (auto &th : pool) {
+            th.join();
+        }
 
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
         for (auto rgb : buffer) {
@@ -82,7 +100,7 @@ class camera {
         auto viewport_height = 2 * h * focus_dist;
 
         const auto viewport_width =
-            viewport_height * (static_cast<double>(image_width) / image_height);
+            viewport_height * (static_cast<float>(image_width) / image_height);
 
         camera_center = lookfrom;
         const point3 viewport_center = camera_center - w * focus_dist;
@@ -117,7 +135,7 @@ class camera {
     }
 
     vec3 pixel_sample_suquare() {
-        return delta_u / 2 * random_double() + delta_v / 2 * random_double();
+        return delta_u / 2 * random_float() + delta_v / 2 * random_float();
     }
 
     point3 defocus_disk_sample() const {
@@ -132,11 +150,11 @@ class camera {
         int i = 0;
         for (; i < max_depth; ++i) {
             hit_record rec;
-            if (!world.hit(r, interval(0.001, infinity), rec)) {
+            if (!world.hit(r, interval(0.001, not_really_infinity), rec)) {
                 vec3 unit_direction = unit_vector(r.direction());
-                auto a = 0.5 * (unit_direction.y() + 1.0);
+                float a = 0.5f * (unit_direction.y() + 1.0f);
                 return cumulative_attenuation *
-                       ((1.0 - a) * color(1.0, 1.0, 1.0) +
+                       ((1.0f - a) * color(1.0, 1.0, 1.0) +
                         a * color(0.5, 0.7, 1.0));
             }
             color attenuation;

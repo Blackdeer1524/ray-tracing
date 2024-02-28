@@ -9,7 +9,7 @@
 
 using color = vec3;
 
-inline double linear_to_gamma(double linear_component) {
+inline float linear_to_gamma(float linear_component) {
     return sqrt(linear_component);
 }
 
@@ -19,7 +19,7 @@ inline int write_color(color pixel_color, int samples_per_pixel) {
     auto b = pixel_color.z();
 
     // Divide the color by the number of samples.
-    auto scale = 1.0 / samples_per_pixel;
+    float scale = 1.0f / samples_per_pixel;
     r *= scale;
     g *= scale;
     b *= scale;

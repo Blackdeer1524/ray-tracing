@@ -2,6 +2,7 @@
 #define RTWEEKEND_H
 
 #include <cmath>
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <numbers>
@@ -16,24 +17,24 @@ using std::numbers::pi;
 
 // Constants
 
-const double infinity = std::numeric_limits<double>::infinity();
+const float not_really_infinity = std::numeric_limits<float>::max();
 
 // Utility Functions
 
-inline double degrees_to_radians(double degrees) {
+inline float degrees_to_radians(float degrees) {
     return degrees * pi / 180.0;
 }
 
-inline double random_double() {
+inline float random_float() {
     static std::random_device rd;
-    static std::mt19937 gen(rd());
-    static std::uniform_real_distribution<double> uniform_distr(0.0, 1.0);
+    static std::ranlux24_base gen(rd());
+    static std::uniform_real_distribution<float> uniform_distr(0.0, 1.0);
 
     return uniform_distr(gen);
 }
 
-inline double random_double(double min, double max) {
-    return min + (max - min) * random_double();
+inline float random_float(float min, float max) {
+    return min + (max - min) * random_float();
 }
 
 // Common Headers

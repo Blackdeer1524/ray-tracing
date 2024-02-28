@@ -5,23 +5,23 @@
 
 class interval {
  public:
-    double min, max;
+    float min, max;
 
-    interval() : min(+infinity), max(-infinity) {
+    interval() : min(+not_really_infinity), max(-not_really_infinity) {
     }  // Default interval is empty
 
-    interval(double _min, double _max) : min(_min), max(_max) {
+    interval(float _min, float _max) : min(_min), max(_max) {
     }
 
-    bool contains(double x) const {
+    bool contains(float x) const {
         return min <= x && x <= max;
     }
 
-    bool surrounds(double x) const {
+    bool surrounds(float x) const {
         return min < x && x < max;
     }
 
-    double clamp(double x) const {
+    float clamp(float x) const {
         if (x < min) {
             return min;
         }
@@ -34,7 +34,7 @@ class interval {
     static const interval empty, universe;
 };
 
-const static interval empty(+infinity, -infinity);
-const static interval universe(-infinity, +infinity);
+const static interval empty(+not_really_infinity, -not_really_infinity);
+const static interval universe(-not_really_infinity, +not_really_infinity);
 
 #endif
