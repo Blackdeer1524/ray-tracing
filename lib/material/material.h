@@ -26,7 +26,10 @@ class lambertian : public material {
                  ray &scattered) const override {
         auto scatter_direction = rec.normal + random_unit_vector();
 
-        // Catch degenerate scatter direction
+        // Отлавливает случай когда нормаль к поверхности и случайное направление 
+        // диффузного отражения коллапсируют к вектору по норме близким к нулю.
+        // Из-за этого могут возникнуть ошибки округления которые могу сделать направление
+        // нового луча внутрь объекта (против нормали)
         if (scatter_direction.near_zero()) {
             scatter_direction = rec.normal;
         }

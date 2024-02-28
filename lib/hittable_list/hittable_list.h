@@ -4,17 +4,17 @@
 #include "hittable.h"
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 class hittable_list : public hittable {
  public:
     std::vector<std::shared_ptr<hittable>> objects;
 
-    hittable_list() {
-    }
+    hittable_list() = default;
 
-    hittable_list(std::shared_ptr<hittable> object) {
-        add(object);
+    explicit hittable_list(std::shared_ptr<hittable> object) {
+        add(std::move(object));
     }
 
     void clear() {
@@ -22,7 +22,7 @@ class hittable_list : public hittable {
     }
 
     void add(std::shared_ptr<hittable> object) {
-        objects.push_back(object);
+        objects.push_back(std::move(object));
     }
 
     bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
