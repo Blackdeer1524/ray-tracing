@@ -7,7 +7,7 @@ class interval {
  public:
     float min, max;
 
-    interval() : min(+not_really_infinity), max(-not_really_infinity) {
+    interval() : min(+infinity), max(-infinity) {
     }  // Default interval is empty
 
     interval(float _min, float _max) : min(_min), max(_max) {
@@ -34,7 +34,7 @@ class interval {
     static const interval empty, universe;
 };
 
-const static interval empty(+not_really_infinity, -not_really_infinity);
-const static interval universe(-not_really_infinity, +not_really_infinity);
+const static interval empty(+infinity, -infinity);
+const static interval universe(-infinity, +infinity);
 
 #endif

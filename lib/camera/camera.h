@@ -150,7 +150,7 @@ class camera {
         int i = 0;
         for (; i < max_depth; ++i) {
             hit_record rec;
-            if (!world.hit(r, interval(0.001, not_really_infinity), rec)) {
+            if (!world.hit(r, interval(0.001, infinity), rec)) {
                 vec3 unit_direction = unit_vector(r.direction());
                 float a = 0.5f * (unit_direction.y() + 1.0f);
                 return cumulative_attenuation *
