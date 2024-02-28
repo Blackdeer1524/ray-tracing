@@ -13,15 +13,16 @@ class interval {
     interval(float _min, float _max) : min(_min), max(_max) {
     }
 
-    bool contains(float x) const {
+    [[nodiscard]] bool contains(float x) const {
         return min <= x && x <= max;
     }
 
-    bool surrounds(float x) const {
+    [[nodiscard]] bool surrounds(float x) const {
         return min < x && x < max;
     }
 
-    float clamp(float x) const {
+    // урезает x если он выходит за пределы интервала
+    [[nodiscard]] float clamp(float x) const {
         if (x < min) {
             return min;
         }

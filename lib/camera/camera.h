@@ -10,6 +10,7 @@
 #include <cmath>
 #include <thread>
 #include <vector>
+#include <iostream>
 
 class camera {
  public:
