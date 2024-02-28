@@ -6,7 +6,7 @@
 
 class sphere : public hittable {
  public:
-    sphere(point3 _center, double _radius, shared_ptr<material> _material)
+    sphere(point3 _center, float _radius, shared_ptr<material> _material)
         : center(_center), radius(_radius), mat(_material) {
     }
 
@@ -22,9 +22,7 @@ class sphere : public hittable {
         }
         auto sqrtd = sqrt(discriminant);
 
-        // Find the nearest root that lies in the acceptable range.
         auto root = (-half_b - sqrtd) / a;
-
         if (!ray_t.surrounds(root)) {
             root = (-half_b + sqrtd) / a;
             if (!ray_t.surrounds(root)) {
@@ -43,7 +41,7 @@ class sphere : public hittable {
 
  private:
     point3 center;
-    double radius;
+    float radius;
     shared_ptr<material> mat;
 };
 

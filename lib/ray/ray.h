@@ -20,7 +20,7 @@ class ray {
         return dir;
     }
 
-    [[nodiscard]] point3 at(double t) const {
+    [[nodiscard]] point3 at(float t) const {
         return orig + t * dir;
     }
 

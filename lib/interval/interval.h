@@ -1,27 +1,28 @@
 #ifndef INTERVAL_H
 #define INTERVAL_H
 
-#include "rtweekend.h"
+#include "common.h"
 
 class interval {
  public:
-    double min, max;
+    float min, max;
 
     interval() : min(+infinity), max(-infinity) {
     }  // Default interval is empty
 
-    interval(double _min, double _max) : min(_min), max(_max) {
+    interval(float _min, float _max) : min(_min), max(_max) {
     }
 
-    bool contains(double x) const {
+    [[nodiscard]] bool contains(float x) const {
         return min <= x && x <= max;
     }
 
-    bool surrounds(double x) const {
+    [[nodiscard]] bool surrounds(float x) const {
         return min < x && x < max;
     }
 
-    double clamp(double x) const {
+    // урезает x если он выходит за пределы интервала
+    [[nodiscard]] float clamp(float x) const {
         if (x < min) {
             return min;
         }

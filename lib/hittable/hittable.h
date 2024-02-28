@@ -10,9 +10,9 @@ class hit_record {
  public:
     point3 p;
     vec3 normal;
-    double t;
-    bool front_face;
+    float t;
     shared_ptr<material> mat;
+    bool front_face;
 
     void set_face_normal(const ray &r, const vec3 &outward_normal) {
         // Sets the hit record normal vector.
