@@ -77,9 +77,13 @@ class dielectric : public material {
 
         vec3 unit_direction = unit_vector(r_in.direction());
 
-        float cos_theta = fmin(dot(-unit_direction, rec.normal), 1.0);
+        float cos_theta = std::min(dot(-unit_direction, rec.normal), 1.0f);
         float sin_theta = sqrt(1.0 - cos_theta * cos_theta);
 
+        // из Закон Снеллиуса следует, что справа будет стоять синус
+        // угла преломления. Синус, очевидно, не может превышать единицу.
+        // Если левая часть строго больше единицы, тогда происходит 
+        // полное внутреннее отражение
         bool cannot_refract = refraction_ratio * sin_theta > 1.0;
         vec3 direction;
         if (cannot_refract ||
@@ -94,10 +98,9 @@ class dielectric : public material {
     }
 
  private:
-    float ir;  // Index of Refraction
+    float ir;  // индекс преломления (Index of Refraction)
 
     static float reflectance(float cosine, float ref_idx) {
-        // Use Schlick's approximation for reflectance.
         auto r0 = (1 - ref_idx) / (1 + ref_idx);
         r0 = r0 * r0;
         return r0 + (1 - r0) * pow((1 - cosine), 5);
