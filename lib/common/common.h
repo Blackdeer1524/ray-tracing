@@ -19,11 +19,9 @@ inline float degrees_to_radians(float degrees) {
 }
 
 inline float random_float() {
-    static std::random_device rd;
-    static std::ranlux24_base gen(rd());
-    static std::uniform_real_distribution<float> uniform_distr(0.0, 1.0);
-
-    return uniform_distr(gen);
+    static std::default_random_engine e;
+    static std::uniform_real_distribution<> dis(0, 1);  // range [0, 1)
+    return dis(e);
 }
 
 inline float random_float(float min, float max) {

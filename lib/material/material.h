@@ -3,6 +3,7 @@
 
 #include "color.h"
 #include "hittable.h"
+#include "portal.h"
 #include "ray.h"
 
 class material {
@@ -26,10 +27,11 @@ class lambertian : public material {
                  ray &scattered) const override {
         auto scatter_direction = rec.normal + random_unit_vector();
 
-        // Отлавливает случай когда нормаль к поверхности и случайное направление 
-        // диффузного отражения коллапсируют к вектору по норме близким к нулю.
-        // Из-за этого могут возникнуть ошибки округления которые могу сделать направление
-        // нового луча внутрь объекта (против нормали)
+        // Отлавливает случай когда нормаль к поверхности и случайное
+        // направление диффузного отражения коллапсируют к вектору по норме
+        // близким к нулю. Из-за этого могут возникнуть ошибки округления
+        // которые могу сделать направление нового луча внутрь объекта (против
+        // нормали)
         if (scatter_direction.near_zero()) {
             scatter_direction = rec.normal;
         }
@@ -63,6 +65,31 @@ class metal : public material {
     float fuzz;
 };
 
+class portal_fluid : public material {
+ public:
+    portal_fluid(std::shared_ptr<portal> other) : other_(std::move(other)) {
+    }
+
+    bool scatter(const ray &r_in,
+                 const hit_record &rec,
+                 color &attenuation,
+                 ray &scattered) const override {
+        const auto diff = other_->get_normal() - rec.normal;
+
+        const auto q_coord = rec.p[0];
+        const auto p_coord = rec.p[1];
+        const auto loc = other_->get_center() + p_coord * other_->get_p() +
+                         q_coord * other_->get_q();
+
+        attenuation = color(1, 1, 1);
+        scattered = ray(loc, -unit_vector(r_in.direction()) + diff);
+        return true;
+    }
+
+ private:
+    std::shared_ptr<portal> other_;
+};
+
 class dielectric : public material {
  public:
     dielectric(float index_of_refraction) : ir(index_of_refraction) {
@@ -82,7 +109,7 @@ class dielectric : public material {
 
         // из Закон Снеллиуса следует, что справа будет стоять синус
         // угла преломления. Синус, очевидно, не может превышать единицу.
-        // Если левая часть строго больше единицы, тогда происходит 
+        // Если левая часть строго больше единицы, тогда происходит
         // полное внутреннее отражение
         bool cannot_refract = refraction_ratio * sin_theta > 1.0;
         vec3 direction;
