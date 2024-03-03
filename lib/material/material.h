@@ -67,7 +67,7 @@ class metal : public material {
 
 class portal_fluid : public material {
  public:
-    portal_fluid(std::shared_ptr<portal> other) : other_(std::move(other)) {
+    portal_fluid(std::shared_ptr<square_portal> other) : other_(std::move(other)) {
     }
 
     bool scatter(const ray &r_in,
@@ -87,7 +87,7 @@ class portal_fluid : public material {
     }
 
  private:
-    std::shared_ptr<portal> other_;
+    std::shared_ptr<square_portal> other_;
 };
 
 class dielectric : public material {

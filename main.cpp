@@ -15,9 +15,9 @@ int main() {
     world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
 
     auto first_portal =
-        make_shared<portal>(point3(-4, 3, 5), vec3(-4, 0, 0), vec3(0, 1, 0));
+        make_shared<square_portal>(point3(-4, 3, 5), vec3(-1, 0, 0), 4, vec3(0, 1, 0), 1);
     auto second_portal =
-        make_shared<portal>(point3(5, 3, 0), vec3(0, 0, 4), vec3(-1, 1, 0));
+        make_shared<square_portal>(point3(5, 3, 0), vec3(0, 0, 1), 4, vec3(-1, 1, 0), 1);
 
     auto t = make_shared<lambertian>(color(0.4, 0.2, 0.1));  //
 
@@ -76,7 +76,7 @@ int main() {
 
     cam.aspect_ratio = 16.0 / 9.0;
     cam.image_width = 500;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = 1;
     cam.max_depth = 13;
 
     cam.vfov = 40;

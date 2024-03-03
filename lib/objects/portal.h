@@ -8,22 +8,13 @@
 
 class lambertian;
 
-inline vec3 ort(vec3 e1, vec3 e2) {
-    if (dot(e1, e2) == 0) {
-        return e2;
-    }
-    const auto a = -e1.length_squared() / dot(e1, e2);
-    return e1 + a * e2;
-}
-
-class portal : public hittable {
+/// При ударе вернет нормализированные координаты
+class square_portal : public hittable {
  public:
-    portal(point3 center, vec3 q, vec3 p)
-        : center_(center), q_(ort(p, q)), p_(p), n_(cross(q, p)) {
-        if (dot(q, q_) < 0) {
-            q_ = -q_;
-        }
-        n_ = n_ / n_.length();
+    square_portal(point3 center, vec3 q, float q_scale, vec3 p, float p_scale)
+        : center_(center), p_(p_scale * unit_vector(p)),
+          n_(unit_vector(cross(q, p))) {
+        q_ = q_scale * unit_vector(cross(p_, n_));
     }
 
     bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
@@ -64,8 +55,6 @@ class portal : public hittable {
         rec.p[2] = 0;
 
         return true;
-
-        // const auto q_proj = q_  *dot
     }
 
     [[nodiscard]] vec3 get_normal() const {
@@ -90,7 +79,7 @@ class portal : public hittable {
 
  private:
     const point3 center_;
-    const vec3 p_;
+    vec3 p_;
     vec3 q_;
     vec3 n_;
     std::shared_ptr<material> fluid_;
