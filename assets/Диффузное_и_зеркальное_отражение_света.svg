@@ -1,0 +1,103 @@
+<svg width="210mm" height="145.8mm" version="1.1" viewBox="0 0 793.701 551.2376" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <marker id="t" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill-opacity=".9796" fill-rule="evenodd" stroke="#000" stroke-width="1pt"/>
+  </marker>
+  <linearGradient id="a" x1="493.9" x2="493" y1="799.6" y2="869.7" gradientTransform="matrix(1.013 0 0 .5931 5.573 28.88)" gradientUnits="userSpaceOnUse">
+   <stop stop-opacity=".5061" offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <marker id="s" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#0000fd" fill-opacity=".9796" fill-rule="evenodd" stroke="#0000f6" stroke-width="1pt"/>
+  </marker>
+  <marker id="p" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="c" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="n" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="e" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="r" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="m" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="l" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="j" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="h" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="k" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="g" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="q" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="d" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="f" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="b" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="o" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+  <marker id="i" overflow="visible" orient="auto">
+   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill="#f00" fill-opacity=".9796" fill-rule="evenodd" stroke="#f00" stroke-width="1pt"/>
+  </marker>
+ </defs>
+ <rect y="1.25e-5" width="793.7" height="551.2" fill="#fff" fill-rule="evenodd" style="paint-order:fill markers stroke"/>
+ <g stroke-linecap="round">
+  <rect x="23.54" y="504" width="749.8" height="38.21" rx="1.167e-5" ry="3.779" fill="url(#a)" stroke="url(#a)" stroke-dasharray="7.7540739, 2.5846913" stroke-width="2.929" style="paint-order:markers stroke fill"/>
+  <path d="m391.5 504.6-2.011-492.3" fill="#f00" fill-opacity=".9796" marker-end="url(#i)" stroke="#f00" stroke-width="2.444" style="paint-order:markers stroke fill"/>
+  <path d="m23.98 504.4h745.1" stroke="#000" stroke-width="3.802" style="paint-order:markers stroke fill"/>
+ </g>
+ <g fill="#f00" fill-opacity=".9796" stroke="#f00" stroke-linecap="round">
+  <g stroke-width="2.444">
+   <path d="m391.8 504.5-250.3-207" marker-end="url(#p)" style="paint-order:markers stroke fill"/>
+   <path d="m392.4 503.9-219.8-126" marker-end="url(#c)" style="paint-order:markers stroke fill"/>
+   <path d="m391.8 504.5-247.4-285.4" marker-end="url(#n)" style="paint-order:markers stroke fill"/>
+   <path d="m391.8 504.5-168.1-57.6" marker-end="url(#e)" style="paint-order:markers stroke fill"/>
+   <path d="m391.8 504.5-93.48-14.66" marker-end="url(#r)" style="paint-order:markers stroke fill"/>
+   <path d="m392.4 503.9-217.4-368.7" marker-end="url(#m)" style="paint-order:markers stroke fill"/>
+   <path d="m391.8 504.5-164.2-426.7" marker-end="url(#l)" style="paint-order:markers stroke fill"/>
+   <path d="m391.8 504.5-89.83-470.5" marker-end="url(#j)" style="paint-order:markers stroke fill"/>
+  </g>
+  <g stroke-width="2.395">
+   <path d="m391.5 504.6 240.3-206.9" marker-end="url(#o)" style="paint-order:markers stroke fill"/>
+   <path d="m390.8 504 211-126" marker-end="url(#b)" style="paint-order:markers stroke fill"/>
+   <path d="m391.5 504.6 237.6-285.3" marker-end="url(#f)" style="paint-order:markers stroke fill"/>
+   <path d="m391.5 504.6 161.4-57.59" marker-end="url(#d)" style="paint-order:markers stroke fill"/>
+   <path d="m391.5 504.6 89.76-14.66" marker-end="url(#q)" style="paint-order:markers stroke fill"/>
+   <path d="m390.8 504 208.7-368.6" marker-end="url(#g)" style="paint-order:markers stroke fill"/>
+   <path d="m391.5 504.6 157.7-426.6" marker-end="url(#k)" style="paint-order:markers stroke fill"/>
+   <path d="m391.5 504.6 86.26-470.4" marker-end="url(#h)" style="paint-order:markers stroke fill"/>
+  </g>
+ </g>
+ <g fill-opacity=".9796">
+  <path d="m20.81 14.21 367.4 484.5" marker-end="url(#t)" stroke="#000" stroke-linecap="round" stroke-width="3.801" style="paint-order:markers stroke fill"/>
+  <path d="m392.4 503.9 275.3-362.7" fill="#0000fd" marker-end="url(#s)" stroke="#0000f6" stroke-linecap="round" stroke-width="3.801" style="paint-order:markers stroke fill"/>
+  <rect x="272.9" y="102.1" width="231.7" height="83.09" rx="1.261e-5" ry="3.779" fill="#fff" style="paint-order:markers stroke fill"/>
+ </g>
+ <g font-family="sans-serif" font-size="34.21px" letter-spacing="0px" stroke-dashoffset="42.85" stroke-linejoin="round" stroke-width=".7602" text-anchor="middle" word-spacing="0px">
+  <text transform="scale(1.006 .9942)" x="657.4792" y="95.42711" dominant-baseline="auto" fill="#0000ff" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;line-height:31.7022076px;paint-order:stroke fill markers;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal" xml:space="preserve"><tspan x="657.4792" y="95.42711">Зеркальное</tspan><tspan x="657.4792" y="127.1293">отражение</tspan></text>
+  <text transform="scale(1.006 .9942)" x="384.6885" y="141.4369" dominant-baseline="auto" fill="#ff0000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;line-height:31.7022076px;paint-order:stroke fill markers;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal" xml:space="preserve"><tspan x="384.6885" y="141.4369">Диффузное</tspan><tspan x="384.6885" y="173.1391">отражение</tspan></text>
+  <text transform="matrix(.5972 .8 -.8093 .5903 0 0)" x="186.6991" y="-19.80213" dominant-baseline="auto" fill="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;line-height:31.7022076px;paint-order:stroke fill markers;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal" xml:space="preserve"><tspan x="186.6991" y="-19.80213" stroke-width=".7602" text-anchor="middle">Падающий свет</tspan></text>
+ </g>
+</svg>
